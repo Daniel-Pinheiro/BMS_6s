@@ -1,7 +1,7 @@
-#define Tpwm 500
+#define Tpwm 400
 #define Ganho 5
 
-class PWM
+class PseudoPWM
 {
 private:
   uint8_t bitPorta;
@@ -10,7 +10,7 @@ private:
   unsigned long tempoAnterior=0, tempoAtual, tempoProximo=0;
 
 public:
-  PWM(int n){
+  PseudoPWM(int n){
     bitPorta = (1<<n);
   }
   
@@ -43,7 +43,7 @@ public:
   }
 };
 
-PWM pwm0(0), pwm1(1), pwm2(2), pwm3(3), pwm4(4), pwm5(5), pwm6(6), pwm7(7);
+PseudoPWM pwm0(0), pwm1(1), pwm2(2), pwm3(3), pwm4(4), pwm5(5), pwm6(6), pwm7(7);
 /*
 void pwm0_exec()
 {
