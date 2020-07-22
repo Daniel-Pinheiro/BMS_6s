@@ -6,12 +6,18 @@
  */
 #include "leituraCelulas.h"
 
-int valorCelula[8], menorValor;
+int valorCelula[7], menorValor;
 
 void setup() {
-  Serial.begin(57600);
+  valorCelula[6]=0;
   configADCports();
-  DDRB = 0b11111111;
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  Serial.begin(57600);
 }
 
 void loop() {
@@ -22,8 +28,6 @@ void loop() {
     pwm3.process();
     pwm4.process();
     pwm5.process();
-    pwm6.process();
-    pwm7.process();
   }
   /*
   Serial.print(sampleTime);

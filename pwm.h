@@ -1,17 +1,19 @@
-#define Tpwm 400
+#define Tpwm 1000
 #define Ganho 5
 
 class PseudoPWM
 {
 private:
   uint8_t bitPorta;
+  uint8_t *PORTx;
   bool estado = LOW;
   unsigned int deltaT = 50;
   unsigned long tempoAnterior=0, tempoAtual, tempoProximo=0;
 
 public:
-  PseudoPWM(int n){
+  PseudoPWM(uint8_t *registradorPORTx, int n){
     bitPorta = (1<<n);
+    PORTx = registradorPORTx;
   }
   
   void setDutycicle(uint8_t duty) {
@@ -19,12 +21,12 @@ public:
   }
   
   void subir() {
-    PORTB |= bitPorta;
+    *PORTx |= bitPorta;
     estado = HIGH;
   }
   
   void descer() {
-    PORTB &= ~bitPorta;
+    *PORTx &= ~bitPorta;
     estado = LOW;
   }
   
@@ -43,14 +45,9 @@ public:
   }
 };
 
-PseudoPWM pwm0(0), pwm1(1), pwm2(2), pwm3(3), pwm4(4), pwm5(5), pwm6(6), pwm7(7);
-/*
-void pwm0_exec()
-{
-  if(pwm0.process())
-    PORTD |= bitPorta;
-  else
-    PORTD &= ~bitPorta;
-    
-}
-*/
+PseudoPWM pwm0(&PORTD, 6),
+          pwm1(&PORTD, 7),
+          pwm2(&PORTD, 2),
+          pwm3(&PORTD, 3),
+          pwm4(&PORTD, 4),
+          pwm5(&PORTD, 5);
